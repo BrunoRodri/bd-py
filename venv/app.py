@@ -191,10 +191,8 @@ def update_produto(id_produto):
     try:
         dados = request.get_json()
 
-        # Converter id_produto para inteiro (ajuste se necessário)
         id_produto = int(id_produto)
 
-        # Buscar o documento utilizando o id_produto personalizado
         resultado_busca = produtos_collection.find_one({"id_produto": id_produto})
 
         if resultado_busca:
@@ -219,11 +217,8 @@ def update_produto(id_produto):
 @app.route("/excluiproduto/<id_produto>", methods=["DELETE"])
 def delete_produto(id_produto):
     try:
-
-        # Converter id_produto para inteiro (ajuste se necessário)
         id_produto = int(id_produto)
 
-        # Buscar o documento utilizando o id_produto personalizado
         resultado_busca = produtos_collection.find_one({"id_produto": id_produto})
 
         if resultado_busca:
@@ -295,11 +290,9 @@ def update_pedido(id_pedido):
     try:
         dados = request.get_json()
 
-        # Buscar o documento utilizando o _id do pedido
         resultado_busca = pedidos_collection.find_one({"_id": ObjectId(id_pedido)})
 
         if resultado_busca:
-            # Atualiza o documento utilizando o _id
             resultado_atualizacao = pedidos_collection.update_one(
                 {"_id": ObjectId(id_pedido)},
                 {"$set": dados}
@@ -319,11 +312,10 @@ def update_pedido(id_pedido):
 @app.route("/pedidos/<id_pedido>", methods=["DELETE"])
 def delete_pedido(id_pedido):
     try:
-        # Buscar o documento utilizando o _id do pedido
         resultado_busca = pedidos_collection.find_one({"_id": ObjectId(id_pedido)})
 
         if resultado_busca:
-            # Excluir o documento utilizando o _id
+            
             resultado = pedidos_collection.delete_one({"_id": ObjectId(id_pedido)})
 
             if resultado.deleted_count == 1:
